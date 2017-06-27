@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>object.create</title>
+</head>
+
+<body>
+    <div id="test">sdfsdf</div>
+</body>
+<script>
+// let obj = {
+//     name: 'eric'
+// }
+// let obj1 = Object.create(obj);
+// let obj2 = obj;
+// obj1.sex = 'male';
+// obj2.sex = 'female';
+// console.log(obj, obj1, obj2);
+
+// let Person = function(name) {
+//     this.name = name;
+// }
+// Person.prototype = {
+//     constructor: Person,
+//     getName() {
+//         return this.name;
+//     }
+// }
+// let objectFactory = function() {
+//     let obj = new Object();
+//     let Constructor = arguments[0];
+//     console.log(arguments, Constructor)
+//     obj.__proto__ = Constructor.prototype;
+//     let ret = Constructor.apply(obj, arguments);
+//     return typeof ret == 'object' ? ret : obj;
+// }
+// let p1 = objectFactory(Person, 'eric');
+// console.log(p1);
+// console.log(p1.name);
+// console.log(p1.getName());
+
+
+// let Type = {};
+// let i,
+//     type = '';
+// for(i = 0; type = ['String','Array','Number'][i];i++) {
+//   (function(type) {
+//     Type['is'+type] = function(obj) {
+//       return Object.prototype.toString.call(obj) === '[object ' + type + ']'
+//     }
+//   })(type)
+// }
+// console.log(Type.isString(1))
+// let currying = function() {
+//   let args = [];
+//   return function() {
+//     if(arguments.length == 0) {
+//       let ret = 0;
+//       args.forEach((ele) => {
+//         ret += ele;
+//       })
+//       return ret;
+//     } else {
+//       // args.push(arguments[0]);
+//       args = args.concat(Array.from(arguments));
+//       console.log(args)
+//       return arguments.callee;
+//     }
+//   }
+// }
+// let cost = currying();
+// let num = cost(1)(2)(3,4)();
+
+// let addEvent = function(ele,type,callback) {
+//   if(window.addEventListener) {
+//     ele.addEventListener(type,callback);
+//   } else (window.attachEvent) {
+//     ele.attachEvent('on' + type,function() {
+//       return callback.call(ele);
+//     })
+//   }
+// }
+
+// let addEvent = (function() {
+//   if(window.addEventListener) {
+//     return function(ele,type,callback) {
+//       ele.addEventListener(type,callback);
+//     }
+//   } else if(window.attachEvent) {
+//     return function(ele,type.callback) {
+//       ele.attachEvent('on' + type, function() {
+//         return callback.call(ele);
+//       })
+//     }
+//   }
+// })()
+// let addEvent = function() {
+//   if(window.addEventListener) {
+//     addEvent = function(ele,type,callback) {
+
+//     }
+//   } else if(window.attachEvent) {
+//     addEvent = function() {
+
+//     }
+//   }
+//   addEvent();
+// }
+
+
+</script>
+
+</html>

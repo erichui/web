@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>parseUrl</title>
+</head>
+<body>
+  
+</body>
+<script>
+/*
+解析url： www.baidu.com?name=gaohui&sex
+抓取到参数(key,value)
+*/
+  let reg = /[?&](\w+?)=([^&]*)|[?&](\w+)&??/g;
+  let str = 'www.baidu.com?name=gaohui&sex&a=1';
+  /*
+  正则解析过程
+  刚开始时写成了这样：/[?&](\w+?)=([^&]*)/g,
+  这个时候，因为中间加了'='字符，所以无法匹配类似&name=gaohui&sex的情况。
+  修改,加了另外一种情况的匹配：/[?&](\w+?)=([^&]*)|[?&](\w+)&?/g
+  以为完美解决了问题，又试了一下，发现还不完美，
+  无法匹配类似&name=gaohui&sex&a=1的情况。
+  此时后半部分的正则有点小问题，为了匹配无value的情况，'&'也匹配进去了，
+  所以如果后面还有参数就无法匹配。
+  最后把后半部分改成非贪婪匹配即可：
+  /[?&](\w+?)=([^&]*)|[?&](\w+)&??/g
+  over...
+   */
+  
+  /*
+  regexp的情况
+  replacement => str 
+    str中的$1....字符有特殊含义
+
+  replacement => function
+    每个匹配(如果有多个匹配的话)都调用该函数,且返回值将作为替换文本
+    1 match 匹配到的子串(相当于上面的$&)
+    2 p1,p2...  每个分组匹配的结果(对应于$1,$2...)
+    3 index 子串在字符串中的偏移量
+    4 str 原字符串
+   */
+  let str3 = str.replace(reg,(match,$1,$2,$3)=> {
+    console.log(match,$1,$2,$3)
+  })
+
+
+  /*
+  使用exec实现
+  ret == null => 未匹配
+  ret == arr  => [match,(p1,p2....),index,input]
+  参数情况和replace一样
+   */
+  let ret;
+  while((ret = reg.exec(str)) != null) {
+    console.log(ret);
+  }
+
+
+
+</script>
+</html>

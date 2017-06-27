@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>inherit</title>
+</head>
+<body>
+  
+</body>
+<script>
+  // /*
+  // 原型继承
+  //  */
+  // let Super = function() {
+  //   this.name = 'gaohui';
+  //   this.setName = (name) => {
+  //     this.name = name;
+  //   }
+  //   this.getName = () => {
+  //     return this.name;
+  //   }
+  // }
+  // let Sub = function(sex) {
+  //   this.sex = sex;
+  // }
+  // /*
+  // 优点：所有子类实例复用了父类的方法。
+  // 缺点：子类实例，因为引用父类的属性，没有自己的属性。
+  //  */
+  // Sub.prototype = new Super();
+  // let sub1 = new Sub('male');
+  // let sub2 = new Sub('female');
+  // sub1.setName('ada');
+  // console.log(sub2.name);
+  
+
+
+  /*
+  构造函数实现继承
+   */
+  // let Super = function(name) {
+  //   this.name = name;
+  //   this.getName = () => {
+  //     return this.name;
+  //   }
+  // }
+  // let Sub = function(name,sex) {
+  //   Super.call(this,name);
+  //   this.sex = sex;
+  // }
+  // let p1 = new Super('gaohui');
+  
+  // // 优点：子类的每个实例都有自己的属性（name），不会相互影响。
+  // // 缺点：但是继承父类方法的时候就不需要这种特性，希望所有子类共享同一个方法。
+   
+  // let sub1 = new Sub('eric','male');
+  // let sub2 = new Sub('eric2','male2');
+  // sub1.getName = () => {
+  //   return 'aaaa';
+  // }
+  // console.log(sub2.getName());
+  // console.log(sub1.getName === sub2.getName);
+  // /*
+  // 组合式继承
+   // */
+  // let Super = function(name) {
+  //   this.name = name;
+  // }
+  // Super.prototype = {
+  //   constructor: Super,
+  //   getName() {
+  //     return this.name;
+  //   }
+  // }
+  // let Sub = function(name,sex) {
+  //   Super.call(this,name);  // 继承属性，每个实例都有自己的属性
+  //   this.sex = sex;
+  // }
+  // Sub.prototype = new Super('gaohui'); // 继承可复用的方法
+  // /*
+  // 继承了上述两种方式的优点，摒弃了缺点；
+  // 但是因为这种方式，父类的构造函数被执行了两次，子类的原型对象中也有一份父类是的实例属性，而且这些属性会被子类实例上的属性屏蔽掉，也存在内存浪费的情况。
+  //  */
+  // let sub1 = new Sub('gaohui','male');
+  // let sub2 = new Sub('ada','female');
+  // console.log(sub1.getName === sub2.getName);
+
+
+  // /*
+  // 寄生组合式继承
+  //  */
+  // let Super = function(name) {
+  //   this.name = name;
+  // }
+  // Super.prototype = {
+  //   constructor: Super,
+  //   getName() {
+  //     return this.name;
+  //   }
+  // }
+  // let Sub = function(name,sex) {
+  //   Super.call(this,name);  // 继承属性，每个实例都有自己的属性
+  //   this.sex = sex;
+  // }
+  // /*
+  // 组合继承的缺点就是在继承父类方法的时候调用了父类构造函数，从而造成内存浪费，现在只要解决了这个问题就完美了。
+  // 那在复用父类方法的时候，使用Object.create方法也可以达到目的，没有调用父类构造函数，问题解决。
+  //  */
+  // Sub.prototype = Object.create(Super.prototype); 
+  // /*
+  // 上面覆盖了sub的原型对象，为了保持构造函数和原型对象的完整性，这里手动连接。
+  //  */
+  // Sub.prototype.constructor = Sub; 
+
+  class Super {
+    constructor(props) {
+      this.name = props.name || 'gaohui';
+    }
+    setName(name) {
+      this.name = name;
+    }
+    getName() {
+      return this.name;
+    }
+  }
+
+  class Sub extends Super {
+    constructor(props) {
+      super(props);
+      this.sex = props.sex || 'male';
+    }
+    getSex() {
+      return this.sex;
+    }
+  }
+  let sub1 = new Sub({
+    name: 'eric',
+    sex: 'male'
+  });
+  let sub2 = new Sub({
+    name: 'eric',
+    sex: 'female'
+  })
+  sub1.setName('ada');
+  console.log(Sub.prototype.sex)
+</script>
+</html>

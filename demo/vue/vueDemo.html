@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>vueDemo</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<div id="demo1">
+		<input type="text" v-model='inputValue' v-on:keyup.enter='addlist' placeholder="add a list">
+		<ul>
+			<todo-list v-bind:licontent='li' v-for="(li,index) in listArr"  v-on:dele1='remove(index)'></todo-list>
+		</ul>
+	</div>
+	<div id="demo2">
+		<p>{{total}}</p>
+		<button-counter v-on:asfe='addTotal'></button-counter>
+		<button-counter v-on:asfe='addTotal'></button-counter>
+		<input type="text" v-model='mess' @input='changeMess($event.target)'>
+	</div>
+	<script src='./vue.js'></script>
+	<script>
+		Vue.component('button-counter',{
+			template: '<button @click="addNum">{{counter}}</button>',
+			data: function() {
+				return {
+					counter: 0
+				}
+			},
+			methods: {
+				addNum: function() {
+					this.counter++;
+					this.$emit('asfe');
+				}
+			}
+		})
+		var vm2 = new Vue({
+			el: '#demo2',
+			data: {
+				total: 0,
+				mess: ''
+			},
+			methods: {
+				addTotal: function() {
+					console.log(1);
+					this.total++;
+				},
+				changeMess: function(opt) {
+					this.mess = opt.value;
+					console.log(this.mess);
+				}
+			}
+		})	
+		Vue.component('todo-list',{
+			template: '<li>{{licontent}}<button v-on:click="dele">x</button></li>',
+			props: ['licontent'],
+			methods: {
+				dele: function() {
+					this.$emit('dele1');
+				}
+			}
+		})
+		var vm = new Vue({
+			el: '#demo1',
+			data: {
+				inputValue: '',
+				listArr: [
+					'gaohui',
+					'eric',
+					'ada'
+				]
+			},
+			methods: {
+				addlist: function() {
+					this.listArr.push(this.inputValue);
+					this.inputValue = '';
+				},
+				remove: function(index) {
+					this.listArr.splice(index,1);
+				}
+			}
+		})
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>flex</title>
+	<link rel="stylesheet" href="">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.container {
+			display: flex;
+			width: 700px;
+			height: 500px;
+			border: 1px solid #999;
+			justify-content: space-between;
+			padding: 0 10px;
+			box-sizing: border-box;
+			flex-flow: row wrap;
+		}
+		.container:after {
+			/*content: '';*/
+			height: 0;
+			width: 150px;
+		}
+		.container>div,
+		header,
+		main,
+		footer {
+			width: 150px;
+			height: 100px;
+			border: 1px solid #ddd;
+			margin: 5px 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<header>head</header>
+		<main>main</main>
+		<footer>footer</footer>
+		<div>divContent 1</div>
+		<div>divContent 2</div>
+		<div>divContent 3</div>
+		<!-- <div>divContent 4</div>	 -->
+	</div>
+  <script>
+    let randomColor = ()=> '#' + Math.random().toString(16).slice(2,8);
+    let a = randomColor();
+    console.log(a);
+    let $content = document.getElementsByClassName('container')[0];
+    $content.style.background = a;
+  </script>
+</body>
+</html>

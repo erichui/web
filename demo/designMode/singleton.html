@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>singleton</title>
+</head>
+<body>
+  
+</body>
+<script>
+/*
+最暴力单例模式 
+改类不透明 即和其他类创建对象的方式不一样
+ */
+  // let singleton = function(name) {
+  //   this.name = name;
+  //   this.instance = null;
+  // }
+  // singleton.getSingle = function(name) {
+  //   if(this.instance) {
+  //     return this.instance;
+  //   } else {
+  //     return this.instance = new singleton(name);
+  //   }
+  // }
+  // let sing1 = singleton.getSingle('eric');
+  // let sing2 = singleton.getSingle('gaohui');
+  // console.log(sing1);
+  // console.log(sing2);
+  // console.log(sing1 === sing2);
+
+/*
+升级版单例模式
+创建对象形式上和其他类保持一致
+但不易读 后期难维护
+ */
+  // let singleton = (function() {
+  //   let instance;
+  //   let singleConstructor = function(name) {
+  //     if(instance) {
+  //       return instance;
+  //     } else {
+  //       this.name = name;
+  //       this.init();
+  //       return instance = this;
+  //     }
+  //   }
+  //   /*
+  //   创建单例的时候 可以做一些事情
+  //    */
+  //   singleConstructor.prototype.init = function() {
+
+  //   }
+  //   return singleConstructor
+  // })()
+  // let sing1 = new singleton('eric');
+  // let sing2 = new singleton('ada');
+
+  // console.log(sing1);
+  // console.log(sing2);
+  // console.log(sing1 === sing2)
+
+/*
+借助代理实现的单例模式
+ */
+
+let singleton = function(name) {
+  this.name = name;
+  this.init();
+}
+singleton.prototype.init = function() {
+
+}
+let proxySingleton = (function() {
+  var instance;
+  return function(name) {
+    if(instance) {
+      return instance;
+    } else {
+      return instance = new singleton(name);
+    }
+  }
+})()
+
+let sing1 = new proxySingleton('eric');
+let sing2 = new proxySingleton('ada');
+console.log(sing1);
+console.log(sing2);
+console.log(sing1 === sing1);
+
+
+let myApp = {};
+myApp.namespace = function(name) {
+  let current = myApp;
+  let parts = name.split('.');
+  parts.forEach((ele)=> {
+    current = current[ele] || {};
+  })
+  console.log(current);
+}
+myApp.namespace('event');
+myApp.namespace('dom.style');
+console.log(myApp);
+</script>
+</html>

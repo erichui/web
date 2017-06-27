@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>demo</title>
+  <script src="../jquery-3.1.1.js"></script>
+  <style>
+    html {
+      height: 1000px;
+      background: #333;
+    }
+    .child {
+      float: left;
+      width: 300px;
+      height: 150px;
+      background: #333;
+    }
+    .parent {
+      width: 100%;
+      /*height: 500px;*/
+      background: red;
+    }
+    .parent:after {
+      content: '';
+      clear: both;  
+      display: block;
+    }
+  </style>
+</head>
+<body>
+    <div class="parent">
+      <div class="child"></div>
+    </div>
+    <script>
+      function Foo() {
+        getName = function() {
+          console.log(1);
+        }
+        return this;
+      }
+      Foo.getName = function() {
+        console.log(2);
+      }
+      Foo.prototype.getName = function() {
+        console.log(3);
+      }
+      var getName = function() {
+        console.log(4);
+      }
+      function getName() {
+        console.log(5);
+      }
+
+      Foo.getName(); // 2
+      getName(); // 4
+      Foo().getName(); // 1
+      getName(); //1
+      new Foo.getName(); // 2
+      new Foo().getName(); // 3
+      new new Foo().getName(); // 3
+
+    </script>
+</body>
+</html>

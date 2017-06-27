@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>formatNum</title>
+</head>
+<body>
+  
+</body>
+<script>
+/*
+格式化数字
+eg: 1234567 => 1,234,567
+ */
+ let str = '123456789';
+ let reg = /(?!^)(?=(\d{3})+$)/g;
+ /*
+ 正则解析过程
+ 刚开始是这样：/(?=(\d{3})+$)/g
+ 从结尾开始匹配每三个数字的位置，然后就有了这种情况
+ '123455' => ',123,456'; .......
+ 只要把开头的位置过滤掉即可
+ /(?!^)(?=(\d{3})+$)/g
+  */
+ str = str.replace(reg,',');
+ console.log(str);
+</script>
+</html>
