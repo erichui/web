@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="demo">
+		<p>originnal message: {{ message }}{{ now }}</p>
+		<p>computed reversed message: {{ reverseMessage }}</p>
+	</div>
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script>
+	let app1 = new Vue({
+		el: '#demo',
+		data: {
+			message: 'hello world'
+		},
+		method: {  
+
+		},
+		computed: {  // 作为属性的getter，执行后，返回计算后的值
+			reverseMessage() {
+				return this.message.split('').reverse().join('');
+			},
+			fullname() {
+				return this.firstname + ' ' + this.lastname;
+			},
+			fullname() { // 计算属性默认只设置getter，可选择设置setter
+				getter() {
+					return this.firstname + '' + this.lastname;
+				},
+				setter(newVal) {
+					let names = newVal.split(' ');
+					this.firstname = names[0];
+					this.lastname = names[1];
+				}
+			}
+		},
+		watch: { // 监控属性变化时执行回调函数
+			firstname(val) {  
+				this.fullname = val + ' ' + this.lastname;
+			},
+			lstaname(val) {
+				this.fullname = this.firstname + '' + val;
+			}
+
+		}
+	})
+</script>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>todo-list</title>
+</head>
+<body>
+	<div id="demo">
+		<input
+			placeholder = 'add a list'
+			v-model = 'newItem'
+			@keyup.enter = 'addNew'
+		>
+		<ul>
+			<todo-item 
+				v-for='(item,index) of message'
+				:item = 'item'
+				:key = 'index'
+				@remove = 'deleteFn(index)'
+			></todo-item>
+		</ul>
+	</div>
+</body>
+	<script src="https://unpkg.com/vue"></script>
+	<script>
+		Vue.component('todo-item',{
+			props: ['item'],
+			template: "<li>\
+						{{item.name}}\
+						<button @click = \"emitFn\">X</button>\
+					</li>",
+			methods: {
+				emitFn() {
+					this.$emit('remove');
+				}
+			}
+		})
+		let app = new Vue({
+			el: '#demo',
+			data: {
+				newItem: '',
+				message: [
+					{ name: 'gaohui' },
+					{ name: 'eric' },
+					{ name: 'ada' }
+				]
+			},
+			methods: {
+				deleteFn(index) {
+					this.message.splice(index,1);
+				},
+				addNew() {
+					this.message.push({name: this.newItem});
+					this.newItem = '';
+				}
+			}
+		})
+	</script>
+</html>

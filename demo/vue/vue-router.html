@@ -1,0 +1,150 @@
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+<div id="app">
+  <h1>Hello App!</h1>
+  <p>
+    <!-- use router-link component for navigation. -->
+    <!-- specify the link by passing the `to` prop. -->
+    <!-- <router-link> will be rendered as an `<a>` tag by default -->
+    <button v-for = 'item of routerArr' @click = 'goto(item.url)'>{{ item.name }}</button>
+  </p>
+  <!-- route outlet -->
+  <!-- component matched by the route will render here -->
+  <router-view></router-view>
+</div>
+<script>
+// 0. If using a module system, call Vue.use(VueRouter)
+
+// 1. Define route components.
+// These can be imported from other files
+// const Foo = { template: '<div>foo</div>' }
+// const Bar = { template: '<div>bar</div>' }
+
+// 2. Define some routes
+// Each route should map to a component. The "component" can
+// either be an actual component constructor created via
+// Vue.extend(), or just a component options object.
+// We'll talk about nested routes later.
+// const routes = [
+//   { path: '/foo', component: Foo },
+//   { path: '/bar', component: Bar }
+// ]
+let routers = [
+	{
+		name: 'foo',
+		path: '/foo',
+		component: {
+			template: '<div>foo</div>'
+		}
+	},
+	{
+		name: 'bar',
+		path: '/bar',
+		component: {
+			template: '<div>bar</div>'
+		}
+	}
+]
+// 3. Create the router instance and pass the `routes` option
+// You can pass in additional options here, but let's
+// keep it simple for now.
+const router = new VueRouter({
+  routes: routers
+})
+
+// 4. Create and mount the root instance.
+// Make sure to inject the router with the router option to make the
+// whole app router-aware.
+const app = new Vue({
+	data: {
+		routerArr: [
+			{
+				name: 'go to foo',
+				url: '/foo'
+			},
+			{
+				name: 'go to bar',
+				url: '/bar'
+			}
+		]
+	},
+  router,
+  methods: {
+		goto(url) {
+			router.push(url);
+			console.log(url);
+		}
+	},
+	created () {
+		router.push('/foo');
+	}
+}).$mount('#app')
+
+// Now the app has started!
+
+</script>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue-router</title>
+</head>
+<body>
+	<div id="demo">
+		<div>
+			<button v-for = 'item of routerArr' @click = 'goto(item.url)'>{{ item.name }}</button>
+		</div>
+		<router-view></router-view>
+	</div>
+	
+</body>
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+	<script>
+		let routers = [
+			{
+				name: 'foo',
+				path: '/foo',
+				component: {
+					template: '<div>foo</div>'
+				}
+			},
+			{
+				name: 'bar',
+				path: '/bar',
+				component: {
+					template: '<div>bar</div>'
+				}
+			}
+		]
+
+		let router = new VueRouter({
+			routers
+		})
+		console.log(router)
+
+		const app = new Vue({
+			data: {
+				routerArr: [
+					{
+						name: 'go to foo',
+						url: '/foo'
+					},
+					{
+						name: 'go to bar',
+						url: '/bar'
+					}
+				]
+			},
+			router,
+			methods: {
+				goto(url) {
+					router.push(url);
+					console.log(url);
+				}
+			}
+		}).$mount('#demo')
+	</script>
+</html> -->
