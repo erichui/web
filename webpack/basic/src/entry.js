@@ -1,3 +1,3 @@
 import { fn } from './content'
-require('../css/demo.less')
+require('../css/index.css')
 fn();

@@ -81,8 +81,11 @@ Object(__WEBPACK_IMPORTED_MODULE_0__content__["a" /* fn */])();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return fn; });
 let fn = () => {
-	console.log('content js')
+	console.log('content js');
+  console.log('making some change');
+  alert(11);
 }
+
 
 /***/ }),
 /* 2 */
@@ -105,8 +108,8 @@ if(content.locals) module.exports = content.locals;
 if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./demo.less", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!../node_modules/less-loader/dist/cjs.js!./demo.less");
+		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
@@ -124,7 +127,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "body {\n  background: red;\n}\n.main {\n  width: 200px;\n  height: 200px;\n  border: 5px solid grey;\n  text-align: center;\n  line-height: 200px;\n}", ""]);
 
 // exports
 
