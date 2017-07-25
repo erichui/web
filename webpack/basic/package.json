@@ -5,8 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack",
-    "watch": "webpack-dev-server"
+    "start": "webpack-dev-server --inline --config build/webpack.config.dev.js",
+    "dev": "node build/dev-server.js"
   },
   "author": "eric",
   "license": "ISC",

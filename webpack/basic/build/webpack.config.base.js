@@ -2,10 +2,10 @@ let path = require('path');
 
 module.exports = {
 	entry: {
-		app: path.join(__dirname,'src/entry.js')
+		app: path.join(__dirname,'..','src/entry.js')
 	},
 	output: {
-		path: path.join(__dirname,'dist'),
+		path: path.join(__dirname,'..','dist'),
 		filename: 'bundle.js',
 		publicPath: '/dist/'
 	},

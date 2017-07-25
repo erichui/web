@@ -83,7 +83,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__content__["a" /* fn */])();
 let fn = () => {
 	console.log('content js');
   console.log('making some change');
-  alert(11);
+  
 }
 
 
@@ -127,7 +127,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "body {\n  background: red;\n}\n.main {\n  width: 200px;\n  height: 200px;\n  border: 5px solid grey;\n  text-align: center;\n  line-height: 200px;\n}", ""]);
+exports.push([module.i, "body {\n  background: yellowgreen;\n}\n.main {\n  width: 200px;\n  height: 200px;\n  border: 5px solid grey;\n  text-align: center;\n  line-height: 200px;\n}", ""]);
 
 // exports
 
