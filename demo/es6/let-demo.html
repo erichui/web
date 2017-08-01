@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		.item {
+			width: 200px;
+			height: 50px;
+			margin: 10px 0;
+			border: 1px solid #333;
+		}
+	</style>
+</head>
+<body>
+	<div class="item"></div>
+	<div class="item"></div>
+	<div class="item"></div>
+	<div class="item"></div>
+	<div class="item"></div>
+	<ul id="contentWrap">
+		
+	</ul>
+</body>
+<script>
+	let items = document.querySelectorAll('.item');
+	for(let i = 0, len = items.length; i < len; i++) {
+		items[i].onclick = () => {
+			console.log(i);
+		}
+	}
+	let wrap = document.querySelector('#contentWrap');
+	for(let i = 1; i < 6; i++) {
+		let item = document.createElement('li');
+		item.appendChild(document.createTextNode(`item ${i}`))
+		item.onclick = () => {
+			console.log(i);
+		}
+		wrap.appendChild(item);
+	}
+</script>
+</html>

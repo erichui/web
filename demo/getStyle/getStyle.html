@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>getStyle</title>
+	<link rel="stylesheet" href="">
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		.parents {
+			width: 300px;
+			height: 300px;
+			background: yellowgreen;
+			border: 1px solid #333;
+			border-radius: 10px;
+			position: relative;
+		}
+		.child {
+			width: 290px;
+			height: 290px;
+			background: blue;
+			border-right: 1px solid #333;
+			border-bottom: 1px solid #333;
+			border-radius: 10px;
+			position: relative;
+			z-index: 2;
+		}
+		.parents span {
+			background: #999;
+			position: absolute;
+			transform: rotate(-10deg);
+		}
+		.parents .span1 {
+			width: 12px;
+			height: 1px;
+			right: 0;
+		}
+		.parents .span2 {
+			width: 1px;
+			height: 12px;
+			bottom: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="parents">
+		<div class="child"></div>
+	</div>
+	<div id="demo"></div>
+</body>
+<script>
+	/**
+	 * 1 getElementsByClassName()获取到的是一个类数组对象，所以把其当作元素节点时要取到具体的节点。
+	 * 2 获取元素样式的几种方法
+	 * 3 为新创建元素设置类名的方式（className而非class）
+	 * 4 node.appendChild(node) 各种参数的类型 特别是第一个node			
+	 */
+	var $parent = document.getElementsByClassName('parents'),
+		$child = document.getElementsByClassName('child'),
+		_style = window.getComputedStyle($parent[0]),
+		_width = _style.width.split('px')[0],
+		_height = _style.height.split('px')[0],
+		i,
+		j;
+	var a = $child[0].compareDocumentPosition($parent[0]);
+	// alert(a)
+	for(i = 10 ; i < _width - 10 ; i += 10) {
+		var $span = document.createElement('span');
+		var $span1 = document.createElement('span');
+		$span1.className = 'span2';
+		$span1.style.left = i + 'px';
+		$span.className = 'span1';
+		$span.style.top = i + 'px';
+		$parent[0].appendChild($span);
+		$parent[0].appendChild($span1);
+	}
+
+	// $parent[0].dataValue = 1;
+	// $parent[0].setAttribute('asd','eric');
+	// var attr1 =	$parent[0].getAttribute('dataValue'),
+	// 	attr2 = $parent[0].getAttribute('asd');
+	// console.log($parent[0].dataValue,attr1,attr2);
+	var div = document.getElementById('demo');
+	var arr = [],
+		j,
+		attributes = div.attributes,
+		len = attributes.length
+	console.log($parent[0],len)
+	// for(j = 0 ; j < len ; j++) {
+	// 	if(1) {
+	// 		arr.push(attributes[i].nodeName + '=' + attributes[i].nodeValue);
+	// 	}
+
+	// }
+	var name1 = 'gaohui',
+		name2 = 'eda';
+	arr.push(name1 + '=\'' + name2 + '\'');
+		arr.push(name1 + '=\"' + name2 + '\"');
+
+	console.log(arr);
+
+	var divs = document.getElementsByTagName('div'),
+		i,
+		len = divs.length
+	for(i = 0 ; i < len ; i++) {
+		var div = document.createElement('div');
+		document.body.appendChild(div);
+		console.log(i);
+	}
+	
+</script>
+</html>

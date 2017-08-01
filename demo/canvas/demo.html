@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>canvas</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+</body>
+	<script>
+		var c = document.getElementById('canvas');
+		if(c && c.getContext) {
+			c.width = 1000;
+			c.height =600;
+			var ctx = c.getContext('2d');
+			ctx.beginPath();
+			ctx.arc(200,200,200,0,Math.PI*2,false);
+			ctx.moveTo(380,200);
+			ctx.arc(200,200,180,0,Math.PI*2,false);
+			ctx.closePath();
+			ctx.stroke();
+			ctx.beginPath();
+			ctx.moveTo(205,200);
+			ctx.arc(200,200,5,0,Math.PI*2,false);
+			ctx.fillStyle = 'red';
+			ctx.fill();
+
+			var r = 150,
+				radian = Math.PI/6,
+				dx = 200,
+				dy = 200,
+				x,
+				y,
+				i;
+			ctx.fillStyle = '#333';
+			for(i = 1 ; i <= 12 ; i++) {
+				x = Math.sin(radian*i)*r+dx;
+				y = dy-Math.cos(radian*i)*r;
+
+				ctx.font = 'bold 30px Arial';
+				ctx.textBaseline = 'middle';
+				ctx.textAlign = 'center';
+				ctx.fillText(i,x,y);
+			}
+
+			var _date = new Date(),
+				h = _date.getHours()%12,
+				m = _date.getMinutes(),
+				s = _date.getSeconds();
+			console.log(h,m,s);
+
+
+
+			
+
+		}
+	</script>
+</html>

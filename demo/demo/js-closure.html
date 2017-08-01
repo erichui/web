@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>sort</title>
+	<link rel="stylesheet" href="">
+	<style>
+
+	</style>
+</head>
+<body>
+	<ul id="demo">
+		<li class="items1">items1</li>
+		<li class="items2">items2</li>
+		<li class="items3">items3</li>
+		<li class="items4">items4</li>
+		<li class="items5">items5</li>
+	</ul>
+</body>
+	<script>
+		var $ul = document.getElementById('demo');
+		$ul.addEventListener('click',function(e) {
+			var e = e || window.event,
+				target = e.target || e.srcElement;
+			if(target != e.currentTarget) {
+				console.log(this,target.innerHTML)
+			}
+		})
+		
+	</script>
+</html>

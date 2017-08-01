@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>uniqueArray</title>
+  <style>
+    .parent {
+      width: 100%;
+      height: 400px;
+      background: #999;
+      position: relative;
+      display: table-cell;
+      vertical-align: middle;
+    }
+    .child {
+      width: 100px;
+      height: 100px;
+      background: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="parent">
+    <div class="child"></div>
+  </div>
+</body>
+<script>
+  //es3实现
+  // function unique(arr) {
+  //   if(!(arr instanceof Array)) return;
+  //   var obj = {},
+  //       i,
+  //       len = arr.length,
+  //       ret = [];
+  //   for(i = 0; i < len ; i++) {
+  //     if((typeof obj[arr[i]]) == 'undefined') {
+  //       obj[arr[i]] = arr[i];
+  //       ret.push(arr[i]);
+  //     }
+  //   }
+  //   return ret;
+  // }
+
+  // //es5实现
+  // function unique(arr) {
+  //   if(!(arr instanceof Array)) return;
+  //   return arr.filter(function(ele,index,array) {
+  //     return array.indexOf(ele) == index;
+  //   })
+  // }
+  
+  // es6实现
+  // let unique = (arr) => {
+  //   return [...new Set(arr)];
+  // }
+  // var arr = ['a','b',1,'a',1,undefined,2,undefined,2,3,null,3,true,true,new String('1'), new String('1'),/a/,/a/];
+  // console.log(unique(arr));
+
+
+  var array = [1, 1, '1', '1', null, null, undefined, undefined, new String('1'), new String('1'), /a/, /a/, NaN, NaN];
+
+  let strArr = [];
+  let ret = array.filter((item) => {
+    let str = (typeof item) + item;
+    if(!strArr.includes(str)) {
+      strArr.push(str);
+      return true;
+    }
+  })
+  console.log(strArr);
+  console.log(ret);
+  
+</script>
+</html>
