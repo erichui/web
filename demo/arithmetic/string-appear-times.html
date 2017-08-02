@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>string-appear-times</title>
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+</body>
+<script>
+let string = 'nihaoawoasoqlfn';
+/*
+统计每个字母出现的次数，并记录最小的索引值
+ */
+let countTimes = (str) => {
+    str = '' + str;
+    let strArr = str.split('');
+    let retObj = {};
+    strArr.forEach((item, index) => {
+        if (retObj[item]) {
+            retObj[item].times++;
+            retObj[item].index = Math.min(index, retObj[item].index);
+        } else {
+            retObj[item] = {
+                times: 1,
+                index: index
+            }
+        }
+    })
+    return retObj;
+}
+console.log(string);
+console.log(countTimes(string));
+let appearTimes = 1;
+/*
+找到最早出现的且次数为1的字母
+ */
+let findStr = (obj) => {
+    let minIndex = 10,
+        retStr = '';
+    for (item in obj) {
+        if (obj[item].times == appearTimes) {
+            if (obj[item].index <= minIndex) {
+                minIndex = obj[item].index;
+                retStr = item;
+            }
+        }
+    }
+    return retStr;
+}
+console.log(findStr(countTimes(string)))
+
+
+</script>
+
+</html>
