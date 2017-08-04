@@ -38,10 +38,10 @@
 	sup.show();   // 1, [1, 2, 1], 5
 	sub1.show();  // 11, [1, 2, 1], 5
 	sub2.show();  // 12, [1, 2, 1], 5
-	sub1.change(); // b = [1, 2, 1, 11]. sub1.a = 4  c.demo = 5
-	sub2.change(); // b = [1, 2, 1, 11, 12] sub2.a = 5 c.demo = 6
-	sup.show();    // 1, [1, 2, 1, 11, 12] 6
-	sub1.show();   // 4  
-	sub2.show();
+	sub1.change(); // b = [1, 2, 1, 11]. sub1.a = 4  c.demo = 4  sub1.a = 5   a++和++a的坑
+	sub2.change(); // b = [1, 2, 1, 11, 12] sub2.a = 5 c.demo = 5 sub2.a = 6
+	sup.show();    // 1, [1, 2, 1] 5
+	sub1.show();   // 5, [1, 2, 1, 11, 12] 5
+	sub2.show();   // 6, [1, 2, 1, 11, 12] 5
 </script>
 </html>
