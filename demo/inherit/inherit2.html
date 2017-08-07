@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	/*
+	Object.create的简易版
+	不支持传递属性列表
+	 */
+	let Ctor = function() {};  // 空的构造函数，防止每次调用baseCreate时都要创建构造函数
+	let baseCreate = function(protoObj) {
+		Ctor.prototype = protoObj; // 改变原型的指向
+		let obj = new Ctor();    // 创建实例
+		Ctor.prototype = null;   // Ctor常驻再内存中，清空其原型对象，防止内存泄漏。在此之前子类实例obj已经可以通过obj.__proto__访问到继承的对象protoObj。
+		return obj;              // 返回实例对象
+	}
+	let obj1 = {
+		getName() {
+			return this.name
+		}
+	}
+	let obj2 = baseCreate(obj1);
+	obj2.name = 'eric';
+	console.log(obj2.getName());
+</script>
+</html>
