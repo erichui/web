@@ -25,50 +25,82 @@
   </div>
 </body>
 <script>
-  //es3实现
-  // function unique(arr) {
-  //   if(!(arr instanceof Array)) return;
-  //   var obj = {},
-  //       i,
-  //       len = arr.length,
-  //       ret = [];
-  //   for(i = 0; i < len ; i++) {
-  //     if((typeof obj[arr[i]]) == 'undefined') {
-  //       obj[arr[i]] = arr[i];
-  //       ret.push(arr[i]);
-  //     }
-  //   }
-  //   return ret;
-  // }
+  var array = [1, 1, '1', '1', null, null, undefined, undefined, new String('1'), new String('1'), /a/, /a/, NaN, NaN,{},{},[],[],{name: 'gao',sex: 'male'},{sex: 'male',name: 'gao'}];
 
-  // //es5实现
-  // function unique(arr) {
-  //   if(!(arr instanceof Array)) return;
-  //   return arr.filter(function(ele,index,array) {
-  //     return array.indexOf(ele) == index;
-  //   })
-  // }
+  //es3实现
+  function unique_es3(arr) {
+    var obj = {},
+        i,
+        len = arr.length,
+        ret = [];
+    for(i = 0; i < len ; i++) {
+      str = typeof arr[i] + arr[i];
+      if(!obj[str]) {
+        obj[str] = true;
+        ret.push(arr[i]);
+      }
+    }
+    return ret;
+  }
+
+  //es5实现
+  function unique_es5(arr) {
+    if(!(arr instanceof Array)) return;
+    return arr.filter(function(ele,index,array) {
+      return array.indexOf(ele) == index;
+    })
+  }
   
   // es6实现
-  // let unique = (arr) => {
-  //   return [...new Set(arr)];
-  // }
-  // var arr = ['a','b',1,'a',1,undefined,2,undefined,2,3,null,3,true,true,new String('1'), new String('1'),/a/,/a/];
-  // console.log(unique(arr));
+  let unique_set = (arr) => {
+    return [...new Set(arr)];
+  }
+  
 
-
-  var array = [1, 1, '1', '1', null, null, undefined, undefined, new String('1'), new String('1'), /a/, /a/, NaN, NaN];
-
-  let strArr = [];
-  let ret = array.filter((item) => {
-    let str = (typeof item) + item;
-    if(!strArr.includes(str)) {
-      strArr.push(str);
-      return true;
+  function unique_map(arr) {
+    var newArr = [];
+    var len = arr.length;
+    var tmp = new Map();
+    for(var i=0; i<len; i++){
+        if(!tmp.get(arr[i])){
+            tmp.set(arr[i], 1);
+            newArr.push(arr[i]);
+        }
     }
-  })
-  console.log(strArr);
-  console.log(ret);
+    return newArr;
+  }
+
+
+  function unique_includes(arr) {
+    var newArr = [];
+    arr.forEach(function(item){
+        if(!newArr.includes(item)){
+            newArr.push(item);
+        }
+    });
+    return newArr;
+  }
+
+  function unique_str(arr) {
+    let strArr = [];
+    return arr.filter((item) => {
+      // let str = (typeof item) + item;  
+      let str = (typeof item) + JSON.stringify(item);
+      if(!strArr.includes(str)) {
+        strArr.push(str);
+        return true;
+      }
+    })
+  }
+
+  console.log(unique_es3(array),'es3');
+  console.log(unique_es5(array),'es5');
+  console.log(unique_includes(array),'includes')
+  console.log(unique_str(array),'str')
+  console.log(unique_set(array),'set')
+  console.log(unique_map(array),'map')
+
+
   
 </script>
 </html>
