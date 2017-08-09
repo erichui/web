@@ -25,16 +25,18 @@
   </div>
 </body>
 <script>
-  var array = [1, 1, '1', '1', null, null, undefined, undefined, new String('1'), new String('1'), /a/, /a/, NaN, NaN,{},{},[],[],{name: 'gao',sex: 'male'},{sex: 'male',name: 'gao'}];
+  var array = [1, 1, '1', '1',null, null, undefined, undefined, new String(1), new String('1'), /a/, /a/, NaN, NaN,{},{},[],[],{name: 'eric',sex: 'male'},{sex: 'male',name: 'eric'}];
 
   //es3实现
-  function unique_es3(arr) {
+  function unique_es3_on(arr) {
     var obj = {},
         i,
         len = arr.length,
+        str,
         ret = [];
     for(i = 0; i < len ; i++) {
-      str = typeof arr[i] + arr[i];
+      str = typeof arr[i] + arr[i];  // {} {name: 'eric'}
+      str = typeof arr[i] + JSON.stringify(arr[i]);  // /a/ {}
       if(!obj[str]) {
         obj[str] = true;
         ret.push(arr[i]);
@@ -43,6 +45,50 @@
     return ret;
   }
 
+
+  function unique_es3_on2 (arr) {
+    var len = arr.length,
+        i = 0,
+        j,
+        flag,
+        ret = [];
+    for (; i < len ; i++) {
+      flag = true;
+      for (j = i+1 ; j < len ; j++) {
+        if (arr[i] === arr[j]) {
+          flag = false;
+          break;
+        }
+      }
+      if(flag) {
+        ret.push(arr[i]);
+      }
+    }
+    return ret;
+  }
+
+  function unique_str(arr) {
+    let strArr = [];
+    return arr.filter((item) => {
+      let str = (typeof item) + item;  
+      // let str = (typeof item) + JSON.stringify(item);
+      if(!strArr.includes(str)) {
+        strArr.push(str);
+        return true;
+      }
+    })
+  }
+  function unique_str1(arr) {
+    let strArr = [];
+    return arr.filter((item) => {
+      // let str = (typeof item) + item;  
+      let str = (typeof item) + JSON.stringify(item);
+      if(!strArr.includes(str)) {
+        strArr.push(str);
+        return true;
+      }
+    })
+  }
   //es5实现
   function unique_es5(arr) {
     if(!(arr instanceof Array)) return;
@@ -81,22 +127,14 @@
     return newArr;
   }
 
-  function unique_str(arr) {
-    let strArr = [];
-    return arr.filter((item) => {
-      // let str = (typeof item) + item;  
-      let str = (typeof item) + JSON.stringify(item);
-      if(!strArr.includes(str)) {
-        strArr.push(str);
-        return true;
-      }
-    })
-  }
+  
 
-  console.log(unique_es3(array),'es3');
+  console.log(unique_es3_on(array),'es3_on');
+  console.log(unique_es3_on2(array),'es3_on2');
   console.log(unique_es5(array),'es5');
   console.log(unique_includes(array),'includes')
   console.log(unique_str(array),'str')
+  console.log(unique_str1(array),'str1')
   console.log(unique_set(array),'set')
   console.log(unique_map(array),'map')
 
