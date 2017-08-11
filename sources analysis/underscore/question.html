@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script src="./underscore-min.js"></script>
+<body>
+	
+</body>
+<script>
+	/*
+	哪个效率高一点
+	 */
+	let fn = (n) => {
+		var arr = [];
+		for(let i = 0; i < n; i++) {
+			arr.push(i);
+		}
+	}
+	let fn1 = (n) => {
+		var arr = Array(Math.max(0,n));
+		for(let i = 0; i < n; i++) {
+			arr[i] = i;
+		}
+	}
+
+	/*
+	至少有一个参数的加法器
+	 */
+	let add = (a,ret) => {
+		return ret.reduce((accumulator,val,index,arr) => {
+			return accumulator + val;
+		}, a)
+	} 
+
+	/*
+	使函数支持rest参数
+	 */
+	let retArgs = function(fn) {
+		return function () {
+			let len = fn.length,
+					startIndex = len -1 ,
+					args = new Array(len),
+					rets = Array.prototype.slice.call(arguments,startIndex);
+			for(var i = 0 ; i < startIndex ; i++) {
+				args[i] = arguments[i];
+			}
+			args[startIndex] = rets;
+			return fn.apply(this,args);
+		}
+	}
+
+	/*
+	Array.prototype.reduce
+	 */
+	Array.prototype.reduce = Array.prototype.reduce || function(iteratee,initialVal) {
+		if(typeof iteratee != 'function') {
+			return 'undefined is not a function'
+		}
+		let len = this.length,
+				ret = initialVal || this[0];
+		if(initialVal === void 0 && len <= 0 ) {
+			throw 'Reduce of empty array with no initial value'
+		}
+		for(let i = initialVal ? 0 : 1 ; i < len; i++) {
+			ret = iteratee(ret,this[i],i,this);
+		}
+		return ret;
+	}
+	// console.log([1,2].reduce(function(ret,val) {
+	// 	return ret + val
+	// },10))
+</script>
+<script>
+	let findRet = _.findIndex([4,6,8,12], function(val) {
+		return val === 0;
+	})
+	console.log(findRet);
+</script>
+</html>
