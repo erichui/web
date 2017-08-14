@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+	let len = 10000000,
+			i = 0;
+	// console.time()
+	
+	// let arr = [];
+	// for(; i < len; i += 1) {
+	// 	arr.push(i);
+	// }
+	// console.timeEnd();
+
+	let j = 0;
+	console.time();
+	let arr1 = new Array(len);
+	for(; j < len; j += 1) {
+		arr1[j] = j;
+	}
+	console.timeEnd();
+</script>
+</html>
