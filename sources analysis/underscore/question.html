@@ -12,70 +12,130 @@
 	/*
 	哪个效率高一点
 	 */
-	let fn = (n) => {
-		var arr = [];
-		for(let i = 0; i < n; i++) {
-			arr.push(i);
-		}
-	}
-	let fn1 = (n) => {
-		var arr = Array(Math.max(0,n));
-		for(let i = 0; i < n; i++) {
-			arr[i] = i;
-		}
-	}
+	// let fn = (n) => {
+	// 	var arr = [];
+	// 	for(let i = 0; i < n; i++) {
+	// 		arr.push(i);
+	// 	}
+	// }
+	// let fn1 = (n) => {
+	// 	var arr = Array(Math.max(0,n));
+	// 	for(let i = 0; i < n; i++) {
+	// 		arr[i] = i;
+	// 	}
+	// }
 
 	/*
 	至少有一个参数的加法器
 	 */
-	let add = (a,ret) => {
-		return ret.reduce((accumulator,val,index,arr) => {
-			return accumulator + val;
-		}, a)
-	} 
+	// let add = (a,ret) => {
+	// 	return ret.reduce((accumulator,val,index,arr) => {
+	// 		return accumulator + val;
+	// 	}, a)
+	// } 
 
 	/*
 	使函数支持rest参数
 	 */
-	let retArgs = function(fn) {
-		return function () {
-			let len = fn.length,
-					startIndex = len -1 ,
-					args = new Array(len),
-					rets = Array.prototype.slice.call(arguments,startIndex);
-			for(var i = 0 ; i < startIndex ; i++) {
-				args[i] = arguments[i];
-			}
-			args[startIndex] = rets;
-			return fn.apply(this,args);
-		}
-	}
+	// let retArgs = function(fn) {
+	// 	return function () {
+	// 		let len = fn.length,
+	// 				startIndex = len -1 ,
+	// 				args = new Array(len),
+	// 				rets = Array.prototype.slice.call(arguments,startIndex);
+	// 		for(var i = 0 ; i < startIndex ; i++) {
+	// 			args[i] = arguments[i];
+	// 		}
+	// 		args[startIndex] = rets;
+	// 		return fn.apply(this,args);
+	// 	}
+	// }
 
 	/*
 	Array.prototype.reduce
 	 */
-	Array.prototype.reduce = Array.prototype.reduce || function(iteratee,initialVal) {
-		if(typeof iteratee != 'function') {
-			return 'undefined is not a function'
-		}
-		let len = this.length,
-				ret = initialVal || this[0];
-		if(initialVal === void 0 && len <= 0 ) {
-			throw 'Reduce of empty array with no initial value'
-		}
-		for(let i = initialVal ? 0 : 1 ; i < len; i++) {
-			ret = iteratee(ret,this[i],i,this);
-		}
-		return ret;
-	}
+	// Array.prototype.reduce = Array.prototype.reduce || function(iteratee,initialVal) {
+	// 	if(typeof iteratee != 'function') {
+	// 		return 'undefined is not a function'
+	// 	}
+	// 	let len = this.length,
+	// 			ret = initialVal || this[0];
+	// 	if(initialVal === void 0 && len <= 0 ) {
+	// 		throw 'Reduce of empty array with no initial value'
+	// 	}
+	// 	for(let i = initialVal ? 0 : 1 ; i < len; i++) {
+	// 		ret = iteratee(ret,this[i],i,this);
+	// 	}
+	// 	return ret;
+	// }
 	// console.log([1,2].reduce(function(ret,val) {
 	// 	return ret + val
 	// },10))
 </script>
 <script>
+	let flatten = (array, shallow) => {
+		if(!Array.isArray(array)) return [];
+		let output = [],
+				len = array.length,
+				i = 0,
+				idx = 0;
+		for(; i < len; i += 1) {
+			let val = array[i];
+			if(Array.isArray(val)) {
+				if(shallow) {
+					let len1 = val.length,
+							j = 0;
+					for(; j < len1; j +=1) {
+						output[idx++] = val[j];
+					}
+				} else {
+					output = output.concat(flatten(val,false));
+				}
+			} else {
+				output[idx++] = val;
+			}
+		}
+		return output;
+	}
+
 	let findRet = _.findIndex([4,6,8,12], function(val) {
 		return val === 0;
 	})
+
 	console.log(findRet);
+
+	console.log(flatten([1,2,[3,4,[5,6,[7,8]]]], true))
+
+	Function.prototype.bind = function (oThis) {
+		if (typeof this !== 'function') {
+			throw 'err';
+		}
+		var args = Array.prototype.slice.call(arguments,1);
+		var fnToBind = this;
+		let Fn = function () {};
+		var retFn = function () {
+			var retThis = null;
+			if(this instanceof Fn) {
+				retThis = this;
+			} else {
+				retThis = oThis;
+			}
+			return fnToBind.apply(retThis,args.concat(arguments));
+		};
+		retFn.prototype = new Fn();
+		return retFn;
+	}
+	let fn = function () {
+		this.name = 'gaohui';
+		console.log(this.name);
+	}
+	let obj = {
+		name: 'eric'
+	}
+	let retFn = fn.bind(obj);
+	let ret1 = new retFn();
+	console.log(ret1,111);	
+
+
 </script>
 </html>
