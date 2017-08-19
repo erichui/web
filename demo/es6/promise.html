@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>promise</title>
+</head>
+<body>
+	
+</body>
+<script>
+	class _promise {
+		constructor () {
+			
+		}
+		resolve (para) {
+			this.actuator('resolve',para)
+		}
+		reject (para) {
+			this.actuator('reject',para)
+		}
+		then (resolve, reject) {
+			this.callBacks = {
+				resolve: resolve || null,
+				reject: reject || null
+			}
+			return this
+		}
+		catch (reject) {
+			this.callBacks = {
+				resolve: null,
+				reject: reject || null
+			}
+			return this
+		}
+		actuator (status,para) {
+			this.callBacks[status].call(this,para)
+		}
+	}
+	let p1 = new _promise()
+	let fn = () => {
+		setTimeout(() => {
+			console.log('1111')
+			p1.resolve('aaaaaa')
+		},1000)
+		return p1
+	}
+	fn().then((a) => {
+		console.log(2222)
+		console.log(a)
+	})
+</script>
+</html>

@@ -64,6 +64,7 @@ var webpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency'
     }),
     // split vendor js into its own file
+    // 分离第三方js到单独的文件中
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: function (module, count) {
@@ -93,7 +94,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     ])
   ]
 })
-
+// 配置gzip模式
 if (config.build.productionGzip) {
   var CompressionWebpackPlugin = require('compression-webpack-plugin')
 
@@ -111,7 +112,7 @@ if (config.build.productionGzip) {
     })
   )
 }
-
+// 配置webpack-bundle-analyzer，分析打包后生成的文件结构
 if (config.build.bundleAnalyzerReport) {
   var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())

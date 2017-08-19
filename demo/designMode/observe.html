@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>publish-subscribe</title>
+</head>
+<body>
+	
+</body>
+<script>
+	let publishObj = {}
+	publishObj.clientList = {}
+	publishObj.listen = function (key, fn) {
+		if(!this.clientList[key]) {
+			this.clientList[key] = []
+		}
+		this.clientList[key].push(fn)
+	}
+	publishObj.remove = function (key, fn) {
+		if(!this.clientList[key]) {
+			return false
+		}
+		let keyObj = this.clientList[key]
+		if(!keyObj || keyObj.length === 0) {
+			return false
+		}
+		for(let i = 0, len = keyObj.length; i < len ; i++) {
+			if(fn === keyObj[i]) {
+				this.clientList[key].splice(i,1)
+			}
+		}
+	}
+	publishObj.trigger = function () {
+		let args = Array.from(arguments),
+				key = args[0],
+				keyObj = this.clientList[key];
+		if(keyObj) {
+			let i = 0,
+					len = keyObj.length;
+			for(; i < len ; i++) {
+				keyObj[i].apply(this, arguments)
+			}
+		} else {
+			return false
+		}
+		
+	}
+	let per1 = function(price, area) {
+		console.log('price:'+price)
+		console.log('area:'+area)
+	}
+	let per2 = function(price, area) {
+		console.log('price'+price)
+		console.log('area'+area)
+	}
+	publishObj.listen('$1000',per1)
+	publishObj.listen('$2000',per2)
+	console.log(publishObj)
+	publishObj.trigger('$1000','$1000','200')
+	publishObj.trigger('$2000','$1000','200')
+</script>
+</html>

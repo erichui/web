@@ -1,23 +1,29 @@
 require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
-
+// 控制台loading动画
 var ora = require('ora')
 var rm = require('rimraf')
 var path = require('path')
+// 高亮控制台输出的插件
 var chalk = require('chalk')
 var webpack = require('webpack')
 var config = require('../config')
 var webpackConfig = require('./webpack.prod.conf')
 
 var spinner = ora('building for production...')
+// 开始loading动画
 spinner.start()
 
+// 获取输出文件路径
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err
+    // webpack编译  
   webpack(webpackConfig, function (err, stats) {
+    // 停止loading动画
     spinner.stop()
     if (err) throw err
+      // 完成输出相关信息
     process.stdout.write(stats.toString({
       colors: true,
       modules: false,
