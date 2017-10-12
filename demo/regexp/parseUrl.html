@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>parseUrl</title>
 </head>
+
 <body>
-  
+
 </body>
 <script>
-/*
-解析url： www.baidu.com?name=gaohui&sex
-抓取到参数(key,value)
-*/
+  /*
+  解析url： www.baidu.com?name=gaohui&sex
+  抓取到参数(key,value)
+  */
   let reg = /[?&](\w+?)=([^&]*)|[?&](\w+)&??/g;
   let str = 'www.baidu.com?name=gaohui&sex&a=1';
   /*
@@ -27,10 +29,10 @@
   /[?&](\w+?)=([^&]*)|[?&](\w+)&??/g
   over...
    */
-  
+
   /*
   regexp的情况
-  replacement => str 
+  replacement => str
     str中的$1....字符有特殊含义
 
   replacement => function
@@ -40,8 +42,8 @@
     3 index 子串在字符串中的偏移量
     4 str 原字符串
    */
-  let str3 = str.replace(reg,(match,$1,$2,$3)=> {
-    console.log(match,$1,$2,$3)
+  let str3 = str.replace(reg, (match, $1, $2, $3) => {
+    console.log(match, $1, $2, $3)
   })
 
 
@@ -52,11 +54,9 @@
   参数情况和replace一样
    */
   let ret;
-  while((ret = reg.exec(str)) != null) {
+  while ((ret = reg.exec(str)) != null) {
     console.log(ret);
   }
-
-
-
 </script>
+
 </html>
