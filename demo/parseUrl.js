@@ -1,3 +1,12 @@
+/**
+ * 解析url
+ 返回 {
+    user: 'anonymous',
+    id: [123, 456],     // 重复出现的 key 要组装成数组，能被转成数字的就转成数字类型
+    city: '北京',        // 中文
+    enabled: true,      // 未指定值的 key 约定值为 true
+  }
+ */
 let str = 'http://www.domain.com/?user=anonymous&id=123&id=456&city=%E5%8C%97%E4%BA%AC&d&enabled'
 
 let parseUrl = (str) => {
