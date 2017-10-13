@@ -17,6 +17,7 @@ let parseUrl = (str) => {
   }
   let search = searchArr[1]
   return search.split('&').map((params) => {
+    // 分离出key/value形式
     let keyVal = params.split('=')
     let key = keyVal[0]
     let val = keyVal[1] || true
@@ -28,6 +29,7 @@ let parseUrl = (str) => {
       val
     }
   }).reduce((retObj, item, index, arr) => {
+    // 生成最终给定格式的对象
     let {
       key,
       val
