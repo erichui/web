@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>debounce-throttle</title>
+  </head>
+  <body>
+    <input type="text" id="my-input">
+  </body>
+  <script>
+    let _debounce = (fn, interval) => {
+      let timer = null
+      return function() {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          fn()
+        }, interval)
+      }
+    }
+    let _log = () => {
+      console.log(11111)
+    }
+    let _input = document.querySelector('#my-input')
+    _input.addEventListener('input', _debounce(_log, 100))
+
+  </script>
+</html>

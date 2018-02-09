@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>amap-native</title>
+    <style>
+      #container {
+        width: 800px;
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <select name="province" @change="handleSlectedChange">
+        <option
+          v-for="(pro, index) in provinceData"
+          :value="pro.adcode"
+          :key="index"
+        >{{pro.name}}</option>
+      </select>
+      <div id="container"></div>
+    </div>
+    <!-- 先引入 Vue -->
+    <!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
+    <script src="./vue.js"></script>
+
+    <!-- <script src="http://webapi.amap.com/maps?v=1.4.2&key=b1b2169de1c3f9aa72900bd9a8e40d38"></script> -->
+    <script src="./amap.js"></script>
+    <script type="text/javascript">
+      let app = new Vue({
+        el: '#app',
+        data: {
+          inputVal: 'test',
+          amap: null,
+          districtSearch: null,
+          provinceData: [],
+          province: ''
+        },
+        methods: {
+          initMap() {
+            this.amap = new AMap.Map('container')
+            this.addControl()
+            this.initDistrict()
+            this.searchDistrict('中国')
+          },
+          addControl() {
+            AMap.plugin(['AMap.ToolBar'], () => {
+              this.amap.addControl(new AMap.ToolBar())
+            })
+          },
+          initDistrict() {
+            AMap.service('AMap.DistrictSearch', () => {
+              this.districtSearch = new AMap.DistrictSearch({
+                extensions: 'all'
+              })
+            })
+          },
+          searchDistrict(name, level = 'country', subDistrict = 1 ) {
+            if(typeof name === 'undefined') return
+            this.districtSearch.setLevel(level)
+            this.districtSearch.setSubdistrict(subDistrict)
+            this.districtSearch.search(name, (status, result) => {
+              if(status === 'complete' && result.info === 'OK') {
+                console.log(result)
+                let districtList = result.districtList
+                this.provinceData = districtList[0].districtList
+                let boundaries = districtList[0].boundaries
+                let polygon = new AMap.Polygon({
+                  map: this.amap,
+                  strokeWeight: 1,
+                  path: boundaries,
+                  fillOpacity: 0.7,
+                  fillColor: '#CCF3FF',
+                  strokeColor: '#CC66CC'
+                })
+                this.amap.setFitView()
+              }
+            })
+          },
+          handleSlectedChange(e) {
+            console.log(e.target.value)
+            this.amap.setCity(e.target.value)
+          },
+          init() {
+            this.initMap()
+          }
+        },
+        mounted() {
+          this.init()
+        }
+      })
+    </script>
+  </body>
+</html>

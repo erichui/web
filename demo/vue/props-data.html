@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <div id="app">
+      <my-component :data-arr="dataArr"></my-component>
+      <button @click='btnFn'>click me</button>
+      <my-component :data-arr="dataArr"></my-component>
+    </div>
+  </body>
+  <script src="https://unpkg.com/vue"></script>
+  <script>
+    Vue.component('my-component', {
+      props: ['dataArr'],
+      template: `
+        <div>
+          <button @click="btnFn">change btn</button>
+          <div v-for='data in datas' :key="data.key">
+            <p v-for="str in data.arr">{{str}}</p>
+          </div>
+        </div>
+      `,
+      data() {
+        return {
+          index: 0
+        }
+      },
+      methods: {
+        btnFn() {
+          this.index = this.index === 0 ? 1 : 0
+        }
+      },
+      computed: {
+        datas() {
+          return this.dataArr[this.index]
+        }
+      }
+    })
+    let app = new Vue({
+      data() {
+        return {
+          dataArr: [
+            [
+              {
+                key: 'a',
+                name: 'gaohui',
+                arr: ['asdf', 'ass', 'sd', '']
+              }, {
+                key: 'b',
+                name: 'eric',
+                arr: ['asdf', 'ass', 'sd', 'sdfsf']
+              }, {
+                key: 'c',
+                name: 'ada',
+                arr: ['asdf', 'ass', 'sd', 'sdfsf']
+              }
+            ],
+            [
+              {
+                key: 'a',
+                name: 'gaohui1',
+                arr: ['asdf', 'ass', 'sd', 'sdfsf']
+              }, {
+                key: 'b',
+                name: 'eric1',
+                arr: ['asdf', 'ass', 'sd', 'sdfsf']
+              }, {
+                key: 'c',
+                name: 'ada1',
+                arr: ['asdf', 'ass', 'sd', 'sdfsf']
+              }
+            ]
+          ]
+        }
+      },
+      methods: {
+        btnFn() {
+          this.dataArr[0].forEach(items => {
+            let { arr } = items
+            arr.forEach(str => {
+              str = Math.random().toString(36).replace(/[^a-z]/g, '').slice(2, 5)
+            })
+          })
+          console.log(this.dataArr)
+        }
+      }
+    }).$mount('#app')
+  </script>
+</html>

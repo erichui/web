@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+
+      #app {
+        width: 1000px;
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="input"><button @click="goTo">去定位</button>
+      <el-amap class="amap-box" :vid="'amap-vue'"></el-amap>
+    </div>
+
+    <!-- 先引入 Vue -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/vue-amap/dist/index.js"></script>
+    <script type="text/javascript">
+      window.VueAMap.initAMapApiLoader({
+        key: 'b1b2169de1c3f9aa72900bd9a8e40d38',
+        plugin: ['Autocomplete', 'PlaceSearch', 'Scale', 'OverView', 'ToolBar', 'MapType', 'PolyEditor', 'AMap.CircleEditor']
+      })
+      new Vue({
+        el: '#app',
+        data() {
+          return {
+            input: ''
+          }
+        },
+        methods: {
+          goTo() {
+
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

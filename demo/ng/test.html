@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app='todoApp'>
+  <head>
+    <meta charset="utf-8">
+    <title>ng-todo-list</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <style>
+      .todo-true {
+        color: grey;
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>todo</h2>
+    <div ng-controller="TodoController as todoList">
+      <div>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</div>
+      <button ng-click="todoList.archive()">archive</button>
+      <ul>
+        <li ng-repeat='todo in todoList.todos'>
+          <input type="checkbox" ng-model='todo.done'>
+          <span class='done-{todo.done}'>{{todo.text}}</span>
+        </li>
+      </ul>
+      <input type="text" ng-model='todoList.todoText'>
+      <button ng-click="todoList.add()">add</button>
+    </div>
+  </body>
+  <script>
+    const app = angular.module('todoApp', [])
+      .controller('TodoController', () => {
+        let todoList = this
+        todoList.todos = [
+          {
+            text: 'todo list 1',
+            done: false
+          }, {
+            text: 'todo list 2',
+            done: true
+          }
+        ]
+        todoList.remaining = () => {
+          let count = 0
+          angular.forEach(todolist.todos, (todo) => {
+            if(!todo.done) {
+              count++
+            }
+          })
+          return count
+        }
+        todoList.add = () => {
+          console.log(1111)
+          todoList.todos.push({
+            text: todoList.todoText,
+            done: false
+          })
+          todoList.todoText = ''
+        }
+        todoList.archive = () => {
+          let oldTodos = todoList.todos
+          todoList.todos = []
+          angular.forEach(oldTodos, (todo) => {
+            if(!todo.done) {
+              todoList.todos.push(todo)
+            }
+          })
+        }
+      })
+  </script>
+</html>
